@@ -1,0 +1,13 @@
+.table-item {
+  border-right: 1px solid #ddd;
+  display: table-cell;
+  padding: 1.15em 1.5rem;
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+@media (max-width: 1024px) {
+  .not-mandatory {
+    display: none;
+  }
+}
