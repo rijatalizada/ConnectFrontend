@@ -5,6 +5,8 @@ import LeaveReply from "./LeaveReply";
 import ReplyItem from "./ReplyItem";
 import getCookie from "../../../CustomHooks/getCookies";
 import { Rating } from "react-simple-star-rating";
+import { useDispatch } from "react-redux";
+import { setTitle, toggleModal, toggleSuccess } from "../../../features/modal/modalSlice";
 
 const url = "https://localhost:44336/api/Ratings/addRating";
 
@@ -29,15 +31,28 @@ const DiscussionCard = ({
 
   const [starRating, setRating] = useState(rating);
   const [cookieId, setCookieId] = useState<string>("");
+  const dispatch = useDispatch();
 
   console.log(starRating);
 
   const { data, isOkay } = getCookie("user");
 
-  const handleRating = (rate: number) => {
-    console.log(rate);
+  const handleRating = async (rate: number) => {
+    console.log(rate/20);
+    const body = {
+      givenRating: rate / 20,
+      discussionId: id,
+      userId: cookieId,
+    };
+    const req = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${data}`,
+      },
+      body: JSON.stringify(body),
+    });
 
-    // other logic
   };
 
   useEffect(() => {
