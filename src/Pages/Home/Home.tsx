@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import useFetch from "../CustomHooks/useFetch";
-import Header from "../Components/Home/Header";
-import Nav from "../Components/Base/Nav";
-import JoinDiscussion from "../Components/Home/JoinDiscussion";
-import Loading from "../Components/Base/Loading";
-import DiscussionBody from "../Components/Discussion/DiscussionsBody";
+import useFetch from "../../CustomHooks/useFetch";
+import Header from "../../Components/Home/Header";
+import Nav from "../../Components/Base/Nav";
+import JoinDiscussion from "../../Components/Home/JoinDiscussion";
+import Loading from "../../Components/Base/Loading";
+import DiscussionBody from "../../Components/Discussion/DiscussionsBody";
 import { Rating } from "react-simple-star-rating";
 
 const discusssionUrl =

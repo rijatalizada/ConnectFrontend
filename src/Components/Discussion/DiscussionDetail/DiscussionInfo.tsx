@@ -19,7 +19,7 @@ const DiscussionInfo = ({
   return (
     <section className="">
       <div className="navigation text-[1.2rem] bg-[#f1f1f1] p-8 flex items-center">
-        <Link to="/">
+        <Link to="/" className="flex">
           <AiOutlineHome className="text-black duration-300 hover:text-color-primary" />
         </Link>
         <IoMdArrowDropright className="mx-1 mt-1 text-[0.9rem]" />

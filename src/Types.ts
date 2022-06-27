@@ -74,7 +74,7 @@ export interface IDiscussionItem {
   courseName : string,
   rating : number,
   user: string,
-
+  userId: string
 }
 
 

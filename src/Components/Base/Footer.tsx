@@ -7,6 +7,14 @@ import Loading from "./Loading";
 import { IDiscussion, ISchool } from "../../Types";
 import { Link, useLocation } from "react-router-dom";
 import PopularDiscussions from "../Footer/PopularDiscussions";
+import {
+  BsInstagram,
+  BsReddit,
+  BsTwitter,
+  BsFacebook,
+  BsWhatsapp,
+} from "react-icons/bs";
+import "./Footer.css";
 
 const schoolsUrl = "https://localhost:44336/api/Schools/getAllSchools";
 const popularDiscussionsUrl =
@@ -38,7 +46,7 @@ const Footer = () => {
     <footer className="overflow-x-hidden bg-[#364253]">
       <div className="px-10 py-14 grid 2xl:grid-cols-4 gap-32 xl:grid-cols-2 grid-cols-1">
         <div className="recent-under w-full">
-          <p className="text-[2rem] mb-2 text-color-secondary">Recent Posts</p>
+          {/* <p className="text-[2rem] mb-2 text-color-secondary">Recent Posts</p>
           <div className="under py-3 text-color-secondary relative ">
             <p className="post-title mb-1 text-[1.1rem]">
               {" "}
@@ -63,7 +71,7 @@ const Footer = () => {
               The Top Tips to Know Before Travelling to Utah
             </p>
             <p className="date text-[0.9rem]">March 3, 2018</p>
-          </div>
+          </div> */}
         </div>
         <div className="popular-discussions">
           <p className="text-[2rem] mb-2 text-color-secondary">
@@ -90,7 +98,7 @@ const Footer = () => {
             );
           })}
         </div>
-        {windowWidth > 1280 ? (
+        {/* {windowWidth > 1280 ? (
           <div className="search-courses flex flex-col items-start">
             <p className="text-[2rem] mb-4 text-color-secondary">
               Search Course
@@ -108,7 +116,20 @@ const Footer = () => {
           </div>
         ) : (
           ""
-        )}
+        )} */}
+      </div>
+      <div
+        id="footer-contact"
+        className="contact relative container mx-auto w-full h-[4rem]  "
+      >
+        <div className="flex justify-center items-center h-full">
+          <i className="fa-brands fa-instagram contactInfo text-[1.5rem] mx-3"></i>
+          <i className="fa-brands fa-whatsapp contactInfo text-[1.5rem] mx-3"></i>
+          <i className="fa-brands fa-facebook contactInfo text-[1.5rem] mx-3"></i>
+          <i className="fa-brands fa-twitter contactInfo text-[1.5rem] mx-3"></i>
+          <i className="fa-brands fa-reddit contactInfo text-[1.5rem] mx-3"></i>
+
+        </div>
       </div>
     </footer>
   );

@@ -15,7 +15,7 @@ const headingText = "Our Schools";
 
 const Schools = () => {
   const [schools, loading, error] = useFetch(schoolsUrl);
-
+  const [search, setSearch] = React.useState<string>("");
   if (loading) {
     return <Loading />;
   }
@@ -26,7 +26,7 @@ const Schools = () => {
   return (
     <section className="mb-[10rem]">
       <header className="mb-[17rem] max-h-[26rem]">
-        <HeadingComponent url={headingImg} headingText={headingText} />
+        <HeadingComponent url={headingImg} search={search} setSearch={setSearch} headingText={headingText} isSearching={false} />
       </header>
       <main>
         <div className="schools container px-5  md:px-0 sm:mx-auto">

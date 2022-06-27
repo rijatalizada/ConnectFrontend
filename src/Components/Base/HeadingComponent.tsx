@@ -1,8 +1,20 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
+const HeadingComponent = ({
+  url,
+  headingText,
+  setSearch,
+  search,
+  isSearching,
+}: {
+  url: string;
+  headingText: string;
+  setSearch: (search: string) => void;
+  search: string;
+  isSearching: boolean;
+}) => {
+  const label = useRef<HTMLLabelElement>(null);
 
-
-const HeadingComponent = ({url, headingText} : {url : string, headingText: string}) => {
   return (
     <div className="w-full max-h-[26rem] relative flex justify-center text-center">
       <div
@@ -13,7 +25,21 @@ const HeadingComponent = ({url, headingText} : {url : string, headingText: strin
           backgroundPosition: "center",
         }}
       ></div>
-      <p className="text-white text-[3.5rem] z-10 absolute top-32 font-black">{headingText}</p>
+      <div className="absolute z-10 top-32 font-black">
+        <p className="text-white text-[3.5rem] font-black">{headingText}</p>
+        {isSearching && (
+          <div id="course-search" className="relative">
+            <input
+              type="text"
+              name="search"
+              id="search-course"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="mt-3 p-3 border-b-2 bg-transparent outline-none text-white "
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 };

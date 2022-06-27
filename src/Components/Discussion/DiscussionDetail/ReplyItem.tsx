@@ -5,7 +5,6 @@ const ReplyItem = ({reply} : {reply : DiscussionReply}) => {
   return (
     <div
       className="replies bg-[white] mb-[3rem] p-5 max-h-[10rem] overflow-auto"
-      key={reply.id}
     >
       <div className="">
         <div className="flex mr-5  items-center">

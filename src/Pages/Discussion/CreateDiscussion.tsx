@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import getCookie from "../CustomHooks/getCookies";
-import useFetch from "../CustomHooks/useFetch";
+import getCookie from "../../CustomHooks/getCookies";
+import useFetch from "../../CustomHooks/useFetch";
+import { setTitle, toggleModal, toggleSuccess } from "../../features/modal/modalSlice";
 
 const url = "https://localhost:44336/api/Discussions/createDiscussion";
 const courseUrl = "https://localhost:44336/api/Courses/getCourse/";
@@ -14,10 +16,12 @@ const CreateDiscussion = () => {
   const [userId, setUserId] = useState<string>("");
   const [bearerToken, setBearerToken] = useState<string>("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { data, isOkay } = getCookie("user");
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (isOkay) {
       setUserId(data!.userId);
       setBearerToken(data!.token);
@@ -47,6 +51,13 @@ const CreateDiscussion = () => {
         seTitle("");
         seQuestion("");
         navigate("/school/courses/discussions/" + courseId);
+        dispatch(toggleModal(true));
+        dispatch(setTitle("Discussion Successfully Created"));
+        dispatch(toggleSuccess(true)) 
+      } else{ 
+        dispatch(toggleModal(true));
+        dispatch(setTitle("Discussion Failed"));
+        dispatch(toggleSuccess(false)) 
       }
     } catch (error: any) {
       console.log(error);
@@ -58,7 +69,7 @@ const CreateDiscussion = () => {
       <div className="text-center mb-10 text-[2rem] text-color-primary">
         <p>Create thread for {course.name}</p>
       </div>
-
+    
       <section className="shadow-sm bg-white ">
         <div className="p-10">
           <form onSubmit={(e) => handleSubmit(e)}>

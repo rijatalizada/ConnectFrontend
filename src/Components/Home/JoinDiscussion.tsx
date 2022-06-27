@@ -7,7 +7,7 @@ const JoinDiscussion = () => {
 
   return (
     <div className="container mx-auto grid grid-cols-2 shadow-2xl ">
-      <div className="card-text  bg-color-primary text-color-secondary font-inconsolata p-[1rem] sm:p-7 lg:p-20">
+      <div className="card-text  bg-color-primary text-color-secondary font-inconsolata p-[1rem] sm:p-7 lg:p-20 ">
         <p className=" sm:text-[2.2rem] lg:text-[3rem] md:mb-[0.3rem] font-bold">
           Lorem, ipsum dolor.
         </p>
@@ -26,7 +26,7 @@ const JoinDiscussion = () => {
         )}
       </div>
 
-      <div className="img-container">
+      <div className="img-container ">
         <img
           src="https://firebasestorage.googleapis.com/v0/b/connectimages-7c610.appspot.com/o/HeaderJoinUs.png?alt=media&token=3bcb5ef9-e8f9-4c85-b177-03ef0d0404db"
           alt=""

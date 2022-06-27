@@ -1,8 +1,11 @@
 import React from 'react'
+import './Loading.css'
 
 const Loading = () => {
   return (
-    <div>Loading</div>
+    <div className='loader text-center'>
+      <span>LOADING</span>
+    </div>
   )
 }
 

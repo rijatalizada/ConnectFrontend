@@ -1,15 +1,15 @@
 import React from "react";
 
 interface Props {
-  showNav: () => void;
+  setIsActive: (isActive: boolean) => void;
   isActive: boolean;
 
 }
 
-const BurgerToggle = ({ showNav, isActive } : Props) => {
+const BurgerToggle = ({ setIsActive, isActive } : Props) => {
   return (
     <div
-      onClick={() => showNav()}
+      onClick={() => setIsActive(!isActive)}
       id="navMenu"
       className={`block transition-[all_0.8s_ease-in-out] cursor-pointer ${
         isActive && "delay-[0.8s] rotate-45"

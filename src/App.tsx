@@ -11,18 +11,29 @@ import DiscussionDetail from "./Pages/Discussion/DiscussionDetail";
 import About from "./Pages/About";
 import Courses from "./Pages/Courses";
 import Discussions from "./Pages/Discussion/Discussions";
-import Home from "./Pages/Home";
+import Home from "./Pages/Home/Home";
 import NotFound from "./Pages/NotFound";
 import Schools from "./Pages/Schools";
-import CreateDiscussion from "./Pages/CreateDiscussion";
+import CreateDiscussion from "./Pages/Discussion/CreateDiscussion";
 import Login from "./Pages/Auth/Login";
 import Register from "./Pages/Auth/Register";
 import Layout from "./Pages/Layout";
 import getCookie from "./CustomHooks/getCookies";
+import Users from "./Pages/Users";
+import Modal from "./Components/Base/Modal";
+import { useSelector } from "react-redux";
+import { StoreType } from "./redux/store";
+import Profile from "./Pages/Users/Profile";
+import UpdateUser from "./Pages/Users/UpdateUser";
+import SearchUsers from "./Pages/Users/SearchUsers";
+import User from "./Pages/Users/User";
 
 function App() {
   // const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const {data, isOkay} = getCookie("user");
+  const { data, isOkay } = getCookie("user");
+  const { isOpen, title, success } = useSelector(
+    (state: StoreType) => state.modal
+  );
 
   useEffect(() => {
     if (isOkay) {
@@ -34,6 +45,7 @@ function App() {
     <Router>
       <section className="App overflow-x-hidden min-h-screen flex flex-col">
         <main className="h-max flex-grow">
+          {isOpen && <Modal isOpen={isOpen} title={title} success={success} />}
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
@@ -51,7 +63,10 @@ function App() {
                 path="/discussion/create/:courseId"
                 element={<CreateDiscussion />}
               />
-
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/user/:id" element={<User/>} />
+              <Route path="/updateUser/:id" element={<UpdateUser />} />
+              <Route path="/searchUsers" element={<SearchUsers/>} />
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>

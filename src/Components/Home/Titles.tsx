@@ -16,18 +16,16 @@ const Titles = () => {
   return (
     <div className="w-full relative mb-3  container mx-10 md:mx-auto ">
       <div className="p-3 ">
-        {headerTitles.map((item : ITitles) => {
-          return (
-            <div className="text-white" key={item.id}>
+
+            <div className="text-white" key={headerTitles.id}>
               <p className="lg:text-6xl md:text-4xl text-xl font-bold uppercase mb-[25px] text-skin-primary">
-                {item.title}
+                {headerTitles.title}
               </p>
               <p className="mt-[10px] mb-[30px] text-[#fff] text-[1.2rem]  font-normal">
-                <Markup content={item.subtitle} />
+                <Markup content={headerTitles.subtitle} />
               </p>
             </div>
-          );
-        })}
+
       </div>
     </div>
   );

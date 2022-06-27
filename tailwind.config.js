@@ -18,6 +18,7 @@ module.exports = {
       fontFamily: {
         kdam: "var(--font-kdam)",
         inconsolata: "var(--font-inconsolata)",
+        triscope: "var(--font-triscope)",
       },
       screens: {
         vs: "370px",

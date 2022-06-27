@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 import useFetch from "../../CustomHooks/useFetch";
 import BurgerToggle from "./BurgerToggle";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import getCookie from "../../CustomHooks/getCookies";
 import removeCookie from "../../CustomHooks/removeCookie";
+import { AiFillHome } from "react-icons/ai";
+import { FcAbout } from "react-icons/fc";
+import { IoSchoolSharp } from "react-icons/io5";
+import { AiOutlineUser } from "react-icons/ai";
+import "./Nav.css";
 
 const url = "https://localhost:44336/api/Constants/getConsntans";
 
@@ -38,10 +43,6 @@ const Nav = () => {
     };
   }, [windowWidth]);
 
-  const showNav = () => {
-    setIsActive(!isActive);
-  };
-
   const signOut = () => {
     removeCookie("user");
     window.location.reload();
@@ -59,19 +60,52 @@ const Nav = () => {
           {windowWidth > 768 ? (
             <ul className="list-none flex items-center justify-between">
               <li className="text-color-primary text-[1.2rem] font-bold">
-                <Link to="/">HOME</Link>
+                <NavLink
+                  to="/"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "active-link relative flex items-center"
+                      : "flex items-center"
+                  }
+                >
+                  HOME <AiFillHome className="ml-2" />
+                </NavLink>
               </li>
               <li className="text-color-primary text-[1.2rem] font-bold">
-                <Link to="/about">ABOUT</Link>
+                <NavLink
+                  to="/about"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "active-link relative flex items-center"
+                      : "flex items-center"
+                  }
+                >
+                  ABOUT <FcAbout className="ml-2" />
+                </NavLink>
               </li>
               <li className="text-color-primary text-[1.2rem] font-bold">
-                <Link to="/schools">SCHOOLS</Link>
+                <NavLink
+                  to="/schools"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "active-link relative flex items-center"
+                      : "flex items-center"
+                  }
+                >
+                  SCHOOLS <IoSchoolSharp className="ml-2" />
+                </NavLink>
               </li>
               <li className="text-color-primary text-[1.2rem] font-bold">
-                USERS
-              </li>
-              <li className="text-color-primary text-[1.2rem] font-bold">
-                BLOGS
+                <NavLink
+                  to="/profile"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "active-link relative flex items-center"
+                      : "flex items-center"
+                  }
+                >
+                  PROFILE <AiOutlineUser className="ml-2" />
+                </NavLink>
               </li>
               {!isOkay ? (
                 <li className="text-color-secondary bg-color-primary p-2 rounded-md text-[1.2rem] font-bold">
@@ -84,7 +118,7 @@ const Nav = () => {
               )}
             </ul>
           ) : (
-            <BurgerToggle showNav={showNav} isActive={isActive} />
+            <BurgerToggle setIsActive={setIsActive} isActive={isActive} />
           )}
         </div>
       </div>
@@ -98,35 +132,34 @@ const Nav = () => {
             isActive ? "block" : "hidden"
           }   my-2 text-[1.2rem] font-bold`}
         >
-          <Link to="/">HOME</Link>
+          <Link to="/" className="flex items-center">
+            HOME <AiFillHome className="ml-2" />
+          </Link>
         </li>
         <li
           className={`text-color-primary ${
             isActive ? "block" : "hidden"
           }  my-2 text-[1.2rem] font-bold`}
         >
-          <Link to="/about">ABOUT</Link>
+          <Link to="/about" className="flex items-center">
+            ABOUT <FcAbout className="ml-2" />
+          </Link>
         </li>
         <li
           className={`text-color-primary ${
             isActive ? "block" : "hidden"
           }   my-2 text-[1.2rem] font-bold`}
         >
-          <Link to="/schools">SCHOOLS</Link>
+          <Link to="/schools" className="flex items-center">
+            SCHOOLS <IoSchoolSharp className="ml-2" />
+          </Link>
         </li>
         <li
           className={`text-color-primary ${
             isActive ? "block" : "hidden"
           }   my-2 text-[1.2rem] font-bold`}
         >
-          USERS
-        </li>
-        <li
-          className={`text-color-primary ${
-            isActive ? "block" : "hidden"
-          }   my-2 text-[1.2rem] font-bold`}
-        >
-          BLOGS
+          <Link to={"/profile"}>PROFILE</Link>
         </li>
         {!isOkay ? (
           <li

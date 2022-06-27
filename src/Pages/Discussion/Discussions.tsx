@@ -23,7 +23,9 @@ const Discussions = () => {
   return (
     <section>
       <header className="max-h-[26rem] ">
-        <HeadingComponent headingText={"Discussions"} url={headingUrl} />
+        <HeadingComponent headingText={"Discussions"} url={headingUrl} isSearching={false} setSearch={function (search: string): void {
+          throw new Error("Function not implemented.");
+        } } search={""} />
       </header>
       <main className="my-[16rem] container mx-auto bg-slate-300">
         <DiscussionBody discussions={discussions} loading={loading} showTop={false} courseId={courseId!}/>

@@ -6,6 +6,8 @@ import setCookie from "../../CustomHooks/setCookie";
 import axios from "axios";
 import RemoveCookie from "../../CustomHooks/removeCookie";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
+import { useDispatch } from "react-redux";
+import { setTitle, toggleModal } from "../../features/modal/modalSlice";
 
 const url = "https://localhost:44336/api/Auth";
 
@@ -15,6 +17,7 @@ const Login = () => {
   const [password, setPassword] = useState<string>("");
   const [isError, setIsError] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+  const dispatch = useDispatch();
 
 
 
@@ -41,6 +44,8 @@ const Login = () => {
         RemoveCookie("user");
         setCookie("user", JSON.stringify(res), 1);
         navigate('/');
+        dispatch(toggleModal(true));
+        dispatch(setTitle("User Successfully Logged In"));
       } else{
         setError(res.message);
         setIsError(true);

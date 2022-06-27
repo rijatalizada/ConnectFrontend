@@ -12,8 +12,7 @@ import "./Discussion.css";
 import getCookie from "../../CustomHooks/getCookies";
 import { Rating } from "react-simple-star-rating";
 
-const courseUrl = 'https://localhost:44336/api/Courses/getCourse'
-
+const courseUrl = "https://localhost:44336/api/Courses/getCourse";
 
 const DiscussionBody = ({
   discussions,
@@ -27,8 +26,20 @@ const DiscussionBody = ({
   courseId: string;
 }) => {
   const { data, isOkay } = getCookie("user");
+  const [search, setSearch] = useState<string>("");
+  const [isSearching, setIsSearching] = useState<boolean>(false);
 
-  const [ course, courseLoading, courseError ] = useFetch(courseUrl + `/${courseId}`)
+  const [course, courseLoading, courseError] = useFetch(
+    courseUrl + `/${courseId}`
+  );
+
+  useEffect(() => {
+    if (search.trim() !== "") {
+      setIsSearching(true);
+    } else {
+      setIsSearching(false);
+    }
+  }, [search]);
 
   if (loading) {
     return <Loading />;
@@ -39,7 +50,18 @@ const DiscussionBody = ({
       {showTop && (
         <p className="text-[1.5rem] font-bold mb-5 ">Top Discussions:</p>
       )}
-      {!showTop && <p className="text-color-primary text-[1.4rem]">{course.name}</p>}
+      {!showTop && (
+        <div className="flex justify-between items-center mb-3">
+          <p className="text-color-primary text-[1.4rem]">{course.name}</p>
+          <input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            type="text"
+            placeholder="Search by keyword"
+            className="p-2 focus:outline-none border-solid  rounded-md border-2 border-[#f1]"
+          />
+        </div>
+      )}
       {!showTop &&
         (isOkay ? (
           <Link to={`/discussion/create/${courseId}`} state={{ courseId }}>
@@ -82,9 +104,32 @@ const DiscussionBody = ({
         </li>
         <li className="box-border">
           {discussions.length > 0 ? (
-            discussions.map((discussion : IDiscussionItem) => {
-              return <DiscussionItem key={discussion.id} disc={discussion} showTop={showTop} />;
-            })
+            !isSearching ? (
+              discussions.map((discussion: IDiscussionItem) => {
+                return (
+                  <DiscussionItem
+                    key={discussion.id}
+                    disc={discussion}
+                    showTop={showTop}
+                  />
+                );
+              })
+            ) : (
+              isSearching &&
+              discussions
+                .filter((d) =>
+                  d.title.toLowerCase().includes(search.toLowerCase())
+                )
+                .map((discussion) => {
+                  return (
+                    <DiscussionItem
+                      key={discussion.id}
+                      disc={discussion}
+                      showTop={showTop}
+                    />
+                  );
+                })
+            )
           ) : (
             <p className="text-center text-color-primary text-[1.3rem] my-5">
               There are currently no published discussions

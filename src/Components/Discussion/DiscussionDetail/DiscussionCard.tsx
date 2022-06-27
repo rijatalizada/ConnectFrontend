@@ -31,14 +31,12 @@ const DiscussionCard = ({
   const [cookieId, setCookieId] = useState<string>("");
 
   console.log(starRating);
-  
 
   const { data, isOkay } = getCookie("user");
-  
 
   const handleRating = (rate: number) => {
     console.log(rate);
-    
+
     // other logic
   };
 
@@ -49,7 +47,7 @@ const DiscussionCard = ({
   }, [isOkay]);
 
   return (
-    <section className="mt-[5rem] p-5 bg-[#f1f1f1] ">
+    <section id="discussionCard" className="mt-[5rem] p-5 bg-[#f1f1f1] ">
       <div className="flex items-center justify-between">
         <div className=" flex items-center">
           <div className="flex mr-5">
@@ -71,8 +69,8 @@ const DiscussionCard = ({
         <div className="pr-3 flex">
           <Rating
             onClick={handleRating}
-            initialValue={starRating} 
-
+            initialValue={starRating}
+            ratingValue={0}
           />
         </div>
       </div>
@@ -91,16 +89,18 @@ const DiscussionCard = ({
           />
         )}
         <div className="leave-reply float-right p-5 mb-4">
-          <button
-            onClick={() => setIsReplying(!isReplying)}
-            className={`${
-              isReplying
-                ? "bg-[white]"
-                : "bg-color-primary text-color-secondary"
-            } p-2 rounded-lg cursor-pointer`}
-          >
-            {isReplying ? "Cancel" : "Reply"}
-          </button>
+          {isOkay && (
+            <button
+              onClick={() => setIsReplying(!isReplying)}
+              className={`${
+                isReplying
+                  ? "bg-[white]"
+                  : "bg-color-primary text-color-secondary"
+              } p-2 rounded-lg cursor-pointer`}
+            >
+              {isReplying ? "Cancel" : "Reply"}
+            </button>
+          )}
         </div>
         <div className=" mt-14">
           <p className="text-[1.2rem] my-10 font-bold">Replies:</p>

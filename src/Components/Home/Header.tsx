@@ -8,6 +8,7 @@ import { Autoplay } from "swiper";
 import Titles from "./Titles";
 import JoinDiscussion from "./JoinDiscussion";
 import { HeaderImages } from "../../Types";
+import Loading from "../Base/Loading";
 
 const url = "https://localhost:44336/api/HeaderSliders/getAllHeaderItems";
 
@@ -15,7 +16,7 @@ const HeaderSlider = () => {
   const [headerImages, loading, error] = useFetch(url);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
   if (error) {
     return <div>An Error occured, please comeback later :(</div>;

@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import RemoveCookie from "../../CustomHooks/removeCookie";
+import { setTitle, toggleModal, toggleSuccess } from "../../features/modal/modalSlice";
 
 const url = "https://localhost:44336/api/Auth/register";
 
@@ -13,10 +16,13 @@ const Register = () => {
   const [lastname, setLastname] = useState<string>("");
   const [isError, setIsError] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+  const [responseStatus, setResponseStatus] = useState<boolean>(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    RemoveCookie("user");
     const data = {
       firstName: firstname,
       lastName: lastname,
@@ -34,15 +40,21 @@ const Register = () => {
         },
         body: JSON.stringify(data),
       });
-
-      const res = await request.json();
-
-      if (res.title !== null) {
-        setIsError(false);
+      
+      const res = await request.text();
+      console.log(request.status);
+      
+      
+      if (request.status === 200) {
         navigate("/login");
-      } else {
-        setError(res.title);
-        console.log(res.title);
+        dispatch(toggleModal(true));
+        dispatch(setTitle("User Successfully Registered"));
+        dispatch(toggleSuccess(true)) 
+      }
+
+      if (request.status !== 200) {
+        setError(res);
+        console.log(res);
         setIsError(true);
         setUsername("");
         setNewPass("");
@@ -50,6 +62,8 @@ const Register = () => {
         setEmail("");
         setFirstname("");
         setLastname("");
+        dispatch(toggleSuccess(false));
+        dispatch(setTitle(res));
 
       }
     } catch (error: any) {
@@ -71,7 +85,7 @@ const Register = () => {
 
   const setConfirmPasswordType = () => {
     confirmPaswordInput.current!.type =
-    confirmPaswordInput.current!.type === "password" ? "text" : "password";
+      confirmPaswordInput.current!.type === "password" ? "text" : "password";
   };
 
   return (
@@ -90,7 +104,6 @@ const Register = () => {
         <div className="p-6">
           <Link to={"/"} className="cursor-pointer w-full">
             {" "}
-            
             <img
               className="w-[10rem] z-10 "
               src="https://firebasestorage.googleapis.com/v0/b/connectimages-7c610.appspot.com/o/Connect(logo).png?alt=media&token=780d0634-6cf9-45cd-b06f-832256f06d00"
